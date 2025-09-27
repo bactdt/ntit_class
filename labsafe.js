@@ -5,30 +5,34 @@
 //autor bactdt
 
 
-// 10秒延时启动
-setTimeout(function() {
-    // 跳过弹窗
-    window.confirm = function() { return true; };
-    window.alert = function() {};
+// 定时模拟鼠标移动，防止无操作检测
+function simulateMoveEvent() {
+    var evtTarget = document.querySelector('.task_auto') || document.body;
+    var evt = new MouseEvent('mousemove', {
+        bubbles: true,
+        cancelable: true,
+        clientX: Math.floor(Math.random() * window.innerWidth),
+        clientY: Math.floor(Math.random() * window.innerHeight)
+    });
+    evtTarget.dispatchEvent(evt);
+}
+setInterval(simulateMoveEvent, 10000);
+setTimeout(simulateMoveEvent, 2000);
 
-    // 隐藏/移除所有弹窗相关元素（循环，每秒做一次）
+// 刷课相关逻辑
+setTimeout(function() {
+    window.confirm = function(){ return true; };
+    window.alert = function(){};
+
     setInterval(function() {
         [
-            '.v-transfer-dom',
-            '.ivu-modal-mask',
-            '.ivu-modal-wrap',
-            '.ivu-modal',
-            '.ivu-modal-confirm',
-            '.ivu-modal-content',
-            '.ivu-modal-body'
+            '.v-transfer-dom', '.ivu-modal-mask', '.ivu-modal-wrap', '.ivu-modal',
+            '.ivu-modal-confirm', '.ivu-modal-content', '.ivu-modal-body'
         ].forEach(function(selector) {
-            document.querySelectorAll(selector).forEach(function(el) {
-                el.remove();
-            });
+            document.querySelectorAll(selector).forEach(function(el) { el.remove(); });
         });
     }, 1000);
 
-    // 自动刷课+鼠标移动模拟
     function randomClickPanelItem(tag) {
         const items = Array.from(document.querySelectorAll('.panelItem'));
         if (items.length > 0) {
@@ -36,7 +40,6 @@ setTimeout(function() {
             const item = items[randomIndex];
             const title = item.innerText.trim();
             console.log(`[${tag}] 获取到${items.length}篇，将点击第${randomIndex+1}篇：${title}`);
-            // 鼠标移动模拟（移动到元素中心）
             const rect = item.getBoundingClientRect();
             const x = rect.left + rect.width / 2;
             const y = rect.top + rect.height / 2;
@@ -47,7 +50,6 @@ setTimeout(function() {
                 clientY: y
             });
             item.dispatchEvent(mouseMoveEvent);
-            // 小延时后点击
             setTimeout(function() {
                 item.click();
             }, 100);
@@ -56,15 +58,23 @@ setTimeout(function() {
         }
     }
 
-    // 首次自动刷课
-    randomClickPanelItem('首次自动刷课');
-
-    // 每秒监测 .alredyTime
-    setInterval(function() {
+    // 持续轮询以防页面异步渲染
+    function tryStartScript() {
+        const items = Array.from(document.querySelectorAll('.panelItem'));
+        if (items.length === 0) {
+            console.log('等待目标文章元素...');
+            setTimeout(tryStartScript, 1000);
+            return;
+        }
+        randomClickPanelItem('首次自动刷课');
+        setInterval(taskMain, 1000);
+    }
+    function taskMain() {
         const timeSpan = document.querySelector('.alredyTime');
         if (timeSpan && timeSpan.innerText.trim() === '05:00') {
             randomClickPanelItem('5:00自动刷课');
         }
-    }, 1000);
+    }
 
-}, 10000); // 10秒延时
+    tryStartScript();
+}, 10000);
