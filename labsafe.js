@@ -1,8 +1,46 @@
 //南通理工实验室安全教育刷时长 js 脚本
 //针对域名头为labsafe 的网页
 //控制台复制 js 代码即可运行
-//version 1.0
+//version 1.1
 //autor bactdt
+
+// 跳过弹窗（alert、confirm）
+setTimeout(function(){
+    window.confirm = function(){ return true; };
+    window.alert = function(){};
+}, 5000);
+
+// 强制隐藏所有弹窗相关元素
+const style = document.createElement('style');
+style.innerHTML = `
+.v-transfer-dom,
+.ivu-modal-mask,
+.ivu-modal-wrap,
+.ivu-modal,
+.ivu-modal-confirm,
+.ivu-modal-content,
+.ivu-modal-body {
+    display: none !important;
+}
+`;
+document.head.appendChild(style);
+
+// 定时移除所有弹窗 DOM
+function removeAllModalElements() {
+    [
+        '.v-transfer-dom',
+        '.ivu-modal-mask',
+        '.ivu-modal-wrap',
+        '.ivu-modal',
+        '.ivu-modal-confirm',
+        '.ivu-modal-content',
+        '.ivu-modal-body'
+    ].forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => el.remove());
+    });
+    setTimeout(removeAllModalElements, 1000);
+}
+removeAllModalElements();
 
 // 随机点击一篇文章并打印信息
 function randomClickPanelItem() {
@@ -31,22 +69,6 @@ function checkTimeAndAutoClick() {
     }
 }
 
-// 定时检测并自动移除 “系统提示”弹窗
-function removeSystemModal() {
-    // 定位到弹窗根元素
-    const modal = document.querySelector('.ivu-modal-confirm');
-    if (modal) {
-        modal.remove();
-        console.log('已移除系统提示弹窗');
-    }
-    setTimeout(removeSystemModal, 1000); // 每秒检测一次
-}
-
 // 首次随机点击
 randomClickPanelItem();
-
-// 启动无限刷
 checkTimeAndAutoClick();
-
-// 启动弹窗移除监控
-removeSystemModal();
