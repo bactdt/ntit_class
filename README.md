@@ -1,1 +1,12 @@
 # ntit_class
+
+[南通理工学院实验室安全教育刷时长](https://github.com/bactdt/ntit_class/blob/main/labsafe.js)
+------
+进入南通理工实验室安全教育学习页面。
+
+按下 F12 打开控制台 Console。
+
+将 labsafe.js 的内容全部复制进去并敲回车。
+
+等待自动脚本开始工作，无需手动刷新和操作。
+--------
