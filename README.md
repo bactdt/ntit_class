@@ -10,6 +10,6 @@
 
 等待自动脚本开始工作，无需手动刷新和操作。
 --------
-[安全教育考试复制](https://github.com/bactdt/ntit_class/raw/refs/heads/main/copy.js)
+## [安全教育考试复制](https://github.com/bactdt/ntit_class/raw/refs/heads/main/copy.js)
 ## 声明！
 # 上述脚本仅供交流，请勿售卖，请下载本脚本24小时后删除
