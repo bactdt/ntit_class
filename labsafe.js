@@ -1,8 +1,8 @@
 //南通理工实验室安全教育刷时长 js 脚本
 //针对域名头为labsafe 的网页
 //控制台复制 js 代码即可运行
-
-
+//version 1.0
+//autor bactdt
 
 // 随机点击一篇文章并打印信息
 function randomClickPanelItem() {
