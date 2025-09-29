@@ -1,7 +1,7 @@
 //南通理工实验室安全教育刷时长 js 脚本
 //针对域名头为labsafe 的网页
 //控制台复制 js 代码即可运行
-//version 1.2
+//version 1.2.1
 //autor bactdt
 
 
@@ -21,18 +21,6 @@ setTimeout(simulateMoveEvent, 2000);
 
 // 刷课相关逻辑
 setTimeout(function() {
-    window.confirm = function(){ return true; };
-    window.alert = function(){};
-
-    setInterval(function() {
-        [
-            '.v-transfer-dom', '.ivu-modal-mask', '.ivu-modal-wrap', '.ivu-modal',
-            '.ivu-modal-confirm', '.ivu-modal-content', '.ivu-modal-body'
-        ].forEach(function(selector) {
-            document.querySelectorAll(selector).forEach(function(el) { el.remove(); });
-        });
-    }, 1000);
-
     function randomClickPanelItem(tag) {
         const items = Array.from(document.querySelectorAll('.panelItem'));
         if (items.length > 0) {
