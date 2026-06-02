@@ -2,7 +2,7 @@
 
 [ntit实验室安全教育刷时长](https://raw.githubusercontent.com/bactdt/ntit_class/refs/heads/main/labsafe.js)
 ------
-进入南通理工实验室安全教育学习页面。
+进入实验室安全教育学习页面。
 
 按下 F12 打开控制台 Console。
 
