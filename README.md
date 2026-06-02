@@ -1,6 +1,6 @@
 # ntit_class
 
-[南通理工学院实验室安全教育刷时长](https://raw.githubusercontent.com/bactdt/ntit_class/refs/heads/main/labsafe.js)
+[ntit实验室安全教育刷时长](https://raw.githubusercontent.com/bactdt/ntit_class/refs/heads/main/labsafe.js)
 ------
 进入南通理工实验室安全教育学习页面。
 
